@@ -1,0 +1,74 @@
+.container {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background-color: #fafafa;
+}
+
+.box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 80px;
+    height: calc(100% - 80px);
+    padding: 0 200px;
+}
+
+.line {
+    display: flex;
+    border-right: 5px solid #e7e7e7;
+    padding: 0 50px;
+    width: 10px;
+    height: 100%;
+    margin-right: 50px;
+    border-radius: 60%/100px 100px 0 0;
+}
+
+.diary_button {
+    color: white;
+    background-color: #189572;
+    border-radius: 20px;
+    height: 35px;
+    width: 120px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.diary_txt {
+    display: block;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #189572;
+}
+
+.in_box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    animation-fill-mode: forwards;
+    animation: fadeIn 2s;
+}
+
+.in_box2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    animation-delay: 1s;
+    animation-fill-mode: forwards;
+    animation: fadeIn 4s;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        left:  100%;
+    }
+    to {
+        opacity: 1;
+        left: 0;
+    }
+}
