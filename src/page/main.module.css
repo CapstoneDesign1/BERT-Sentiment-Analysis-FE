@@ -8,12 +8,25 @@
     height: 100%;
 }
 
+.logo_txt {
+    font-size: 40px;
+    color: #189572;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 20px;
+    animation: fadeIn 1.5s;
+    animation-fill-mode: forwards;
+}
+
 .slogan_txt {
     font-size: 30px;
     color: #189572;
     font-weight: bold;
     display: block;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
+    animation: fadeIn_slogan 1.5s;
+    animation-delay: 1s;
+    animation-fill-mode: forwards;
 }
 
 .login_button {
@@ -23,4 +36,42 @@
     border-radius: 3px;
     width: 60px;
     height: 30px;
+}
+
+.animation_box {
+    animation: hidden_box 1s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        left:  100%;
+    }
+    to {
+        opacity: 1;
+        left: 0;
+    }
+}
+
+@keyframes fadeIn_slogan {
+    from {
+        opacity: 0;
+        left:  100%;
+        visibility: visible;
+    }
+    to {
+        opacity: 1;
+        left: 0;
+        visibility: visible;
+    }
+}
+
+@keyframes hidden_box {
+    from {
+        visibility: hidden;
+    }
+    to {
+        visibility: hidden;
+    }
 }

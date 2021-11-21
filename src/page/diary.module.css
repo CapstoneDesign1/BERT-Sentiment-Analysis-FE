@@ -49,17 +49,22 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    animation-fill-mode: forwards;
     animation: fadeIn 2s;
+    animation-fill-mode: forwards;
 }
 
 .in_box2 {
     display: flex;
     flex-direction: column;
     align-items: center;
+    animation: fadeIn_logo 2s;
     animation-delay: 1s;
     animation-fill-mode: forwards;
-    animation: fadeIn 4s;
+}
+
+.animation_box {
+    animation: hidden_box 6s;
+    animation-fill-mode: forwards;
 }
 
 @keyframes fadeIn {
@@ -70,5 +75,28 @@
     to {
         opacity: 1;
         left: 0;
+
+    }
+}
+
+@keyframes fadeIn_logo{
+    from {
+        opacity: 0;
+        left:  100%;
+        visibility: visible;
+    }
+    to {
+        opacity: 1;
+        left: 0;
+        visibility: visible;
+    }
+}
+
+@keyframes hidden_box {
+    from {
+        visibility: hidden;
+    }
+    to {
+        visibility: hidden;
     }
 }

@@ -24,9 +24,11 @@ const Diary = () : JSX.Element => {
                     <button className={style.diary_button} onClick={handleOnReadClick}>읽어보러 가기</button>
                 </div>
                 <div className={style.line}> </div>
-                <div className={style.in_box2}>
-                    <span className={style.diary_txt}>"우리가 기다리는 당신의 솔직한 마음"</span>
-                    <button className={style.diary_button} onClick={handleOnWriteClick}>작성하러 가기</button>
+                <div className={style.animation_box}>
+                    <div className={style.in_box2}>
+                        <span className={style.diary_txt}>"우리가 기다리는 당신의 솔직한 마음"</span>
+                        <button className={style.diary_button} onClick={handleOnWriteClick}>작성하러 가기</button>
+                    </div>
                 </div>
             </div>
         </div>
