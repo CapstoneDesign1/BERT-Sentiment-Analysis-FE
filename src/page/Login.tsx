@@ -1,30 +1,35 @@
 import React, {FormEvent, useEffect, useState} from "react";
 import style from './login.module.css';
 import {Link, useNavigate} from "react-router-dom";
+import { loginMember } from "../apis/Login";
+import {useCookies} from "react-cookie";
 
 const Login = () : JSX.Element => {
 
-    const [id, setId] = useState('');
-    const [pw, setPw] = useState('');
+    const [userId, setUserId] = useState('');
+    const [password, setPassword] = useState('');
+    const [cookies, setCookie, removeCookie] = useCookies(['userId']);
     const navigate = useNavigate();
 
-    useEffect(() => {
-
-    }, []);
-
     const handleIdInput = (e : React.FormEvent<HTMLInputElement>) => {
-        setId(e.currentTarget.value);
+        setUserId(e.currentTarget.value);
     }
 
     const handlePwInput = (e : React.FormEvent<HTMLInputElement>) => {
-        setPw(e.currentTarget.value);
+        setPassword(e.currentTarget.value);
     }
 
-    const handleLogin = (e : FormEvent) => {
+    const handleLogin = async (e : FormEvent) => {
         e.preventDefault();
-        if (id && pw) {
-            console.log("성공");
-            navigate('/diary');
+        if (userId && password) {
+            try {
+                const response = await loginMember({userId, password});
+                setCookie('userId', response.headers["userid"], {path: '/', expires: new Date(Date.now() + 86400)});
+                navigate('/diary');
+            } catch (e) {
+                alert("ID 혹은 PASSWORD가 일치하지 않습니다.");
+                setPassword('');
+            }
         }
         else {
             alert("ID 혹은 PASSWORD를 입력해야 합니다.");
@@ -43,7 +48,7 @@ const Login = () : JSX.Element => {
                     <div className={style.input_box}>
                         <input
                             className={style.input}
-                            value = {id}
+                            value = {userId}
                             onChange = {handleIdInput}
                             placeholder = "아이디"
                             type = "text"
@@ -52,7 +57,7 @@ const Login = () : JSX.Element => {
                     <div className={style.input_box}>
                         <input
                             className={style.input}
-                            value = {pw}
+                            value = {password}
                             onChange = {handlePwInput}
                             placeholder = "비밀번호"
                             type = "password"
