@@ -1,6 +1,6 @@
 import style from './diary.module.css'
 import Navbar from "../component/Navbar";
-import {RouterProps, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
 const Diary = () : JSX.Element => {
 

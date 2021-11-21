@@ -1,19 +1,31 @@
-import React, {FormEvent, useState} from "react";
+import React, {FormEvent, useEffect, useState} from "react";
 import style from './signup.module.css';
 import {useNavigate} from "react-router-dom";
+import {duplicateMember, registerMember} from "../apis/Member";
 
 const Signup = () : JSX.Element => {
 
+    const [isDuplicate, setIsDuplicate] = useState(false);
     const [form, setForm] = useState({
         userId: '',
         password: '',
         verifyPassword: '',
-        userName: '',
-        userAge: 0,
-        userEmail: ''
+        name: '',
+        age: 0,
+        email: ''
     });
     const navigate = useNavigate();
-    const {userId, password, verifyPassword, userName, userAge, userEmail} = form;
+    const {userId, password, verifyPassword, name, age, email} = form;
+
+    const handleOnChangeWithCheck = async (e: React.FormEvent<HTMLInputElement>) => {
+        const nextForm = {
+            ...form,
+            [e.currentTarget.name]: e.currentTarget.value
+        }
+        setForm(nextForm);
+        const response = await duplicateMember(e.currentTarget.value);
+        response ? setIsDuplicate(true) : setIsDuplicate(false);
+    }
 
     const handleOnChange = (e : React.FormEvent<HTMLInputElement>) => {
         const nextForm = {
@@ -23,10 +35,23 @@ const Signup = () : JSX.Element => {
         setForm(nextForm);
     }
 
-    const handleSignup = (e : FormEvent) => {
+    const checkPassword = (password : string, verifyPassword: string) => {
+        return (password === verifyPassword);
+    }
+
+    const handleSignup = async (e : FormEvent) => {
         e.preventDefault();
-        if (userId && userEmail && userAge && password && verifyPassword && userName) {
-            console.log(form);
+        if (!(password && verifyPassword) || !checkPassword(password, verifyPassword)) {
+            alert("비밀번호가 일치하지 않습니다.");
+        }
+        else if ((userId && email && age && password && verifyPassword && name)) {
+            try {
+                const response = await registerMember({userId, age, password, email, name});
+                alert("회원가입이 완료되었습니다.");
+                navigate('/login');
+            } catch (e) {
+                alert("다시 시도해주세요.");
+            }
         }
         else {
             alert("실패");
@@ -34,7 +59,7 @@ const Signup = () : JSX.Element => {
     }
 
     const handleOnClick = () => {
-        navigate(-1);
+        navigate('/login');
     }
 
     return (
@@ -46,12 +71,12 @@ const Signup = () : JSX.Element => {
                         <span className={style.signup_title}>아이디</span>
                         <input
                             className={style.input}
-                            onChange={handleOnChange}
+                            onChange={handleOnChangeWithCheck}
                             type="text"
                             value={userId}
                             name={"userId"}
                         />
-                        <span className={style.signup_error_message}>이미 사용중인 아이디입니다.</span>
+                        {isDuplicate ? <span className={style.signup_error_message}>이미 사용중인 아이디입니다.</span> : <span> </span>}
                     </div>
                     <div className={style.input_box}>
                         <span className={style.signup_title}>비밀번호</span>
@@ -79,11 +104,11 @@ const Signup = () : JSX.Element => {
                         <input
                             className={style.input}
                             onChange={handleOnChange}
-                            value={userName}
+                            value={name}
                             type="text"
-                            name={"userName"}
+                            name={"name"}
                         />
-                        {userName ? <></> : <span className={style.signup_error_message}>필수 입력 항목입니다.</span>}
+                        {name ? <></> : <span className={style.signup_error_message}>필수 입력 항목입니다.</span>}
                     </div>
                     <div className={style.input_box}>
                         <span className={style.signup_title}>나이</span>
@@ -91,21 +116,21 @@ const Signup = () : JSX.Element => {
                             className={style.input}
                             type="number"
                             onChange={handleOnChange}
-                            value={userAge}
-                            name={"userAge"}
+                            value={age}
+                            name={"age"}
                         />
-                        {userAge ? <></> : <span className={style.signup_error_message}>필수 입력 항목입니다.</span>}
+                        {age ? <></> : <span className={style.signup_error_message}>필수 입력 항목입니다.</span>}
                     </div>
                     <div className={style.input_box}>
                         <span className={style.signup_title}>이메일</span>
                         <input
                             className={style.input}
                             onChange={handleOnChange}
-                            value={userEmail}
+                            value={email}
                             type="text"
-                            name={"userEmail"}
+                            name={"email"}
                         />
-                        {userEmail ? <></> : <span className={style.signup_error_message}>필수 입력 항목입니다.</span>}
+                        {email ? <></> : <span className={style.signup_error_message}>필수 입력 항목입니다.</span>}
                     </div>
                     <button className={style.signup_button} type={"submit"}>등록</button>
                 </form>
