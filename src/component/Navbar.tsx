@@ -1,19 +1,30 @@
 import style from './navbar.module.css'
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {Link, useNavigate} from 'react-router-dom';
+import { Cookies } from 'react-cookie';
 
 const Navbar = () : JSX.Element => {
 
-    //const [userId, setUserId] = useState('');
     const navigate = useNavigate();
+    const cookies = new Cookies();
+    const [isLogin, setIsLogin] = useState(false);
 
-    const userId = null;
+    useEffect(() => {
+        const userId = cookies.get('userId');
+        userId ? setIsLogin(true) : setIsLogin(false);
+    }, []);
 
     const handleLogoOnClick = () => {
-        if (userId !== null)
-            navigate('/diary');
-        else
-            navigate('/');
+        isLogin ? navigate('/diary') : navigate('/login');
+    }
+
+    const handleLogoutClick = () => {
+        cookies.remove('userId', {path: '/'});
+        navigate('/');
+    }
+
+    const handleLoginClick = () => {
+        navigate('/login');
     }
 
     return (
@@ -23,7 +34,7 @@ const Navbar = () : JSX.Element => {
                 <div>
                     <Link className={style.nav_diary} to="/diary">일기장으로</Link>
                     <Link className={style.nav_result} to="/result">결과로</Link>
-                    <button className={style.logout_button}>로그아웃</button>
+                    {isLogin ? <button className={style.logout_button} onClick={handleLogoutClick}>로그아웃</button> : <button className={style.logout_button} onClick={handleLoginClick}>로그인</button>}
                 </div>
             </div>
         </div>

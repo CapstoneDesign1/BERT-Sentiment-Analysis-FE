@@ -1,7 +1,9 @@
 import style from './write.module.css'
 import Navbar from "../component/Navbar";
-import React, {FormEvent, useState} from 'react';
+import React, {FormEvent, useEffect, useState} from 'react';
 import {useNavigate} from "react-router-dom";
+import {getQuestions} from "../apis/Question";
+import { Cookies } from 'react-cookie';
 
 const Write = () : JSX.Element => {
 
@@ -13,7 +15,30 @@ const Write = () : JSX.Element => {
         answer5: ''
     });
     const [qNum, setQNum] = useState(0);
+    const [qList, setQList] = useState([]);
+    const cookies = new Cookies();
     const navigator = useNavigate();
+
+    useEffect(() => {
+        const userId = cookies.get('userId');
+        if (!userId) {
+            navigator('/login')
+        }
+        const response = handleGetQuestion();
+    }, []);
+
+    useEffect(() => {
+        console.log(qList);
+    }, [qList]);
+
+    const handleGetQuestion = async () => {
+        try {
+            const response = await getQuestions();
+            setQList(response);
+        } catch (e) {
+
+        }
+    }
 
     const handleOnChange = (e : React.FormEvent<HTMLTextAreaElement>) => {
         const nextForm = {
@@ -56,7 +81,7 @@ const Write = () : JSX.Element => {
                         {qNum === 0 &&
                         <div className={qNum === 0 ? style.input_container : style.input_container_close}>
                             <span className={style.question_title}>#첫 번째 이야기</span>
-                            <span className={style.question_content}>"오늘의 기분을 한 문장으로 표현해주세요"</span>
+                            <span className={style.question_content}>qList</span>
                             <textarea
                                 className={style.input_box}
                                 onChange={handleOnChange}
@@ -69,7 +94,7 @@ const Write = () : JSX.Element => {
                         {qNum === 1 &&
                         <div className={qNum === 1 ? style.input_container : style.input_container_close}>
                             <span className={style.question_title}>#두 번째 이야기</span>
-                            <span className={style.question_content}>"오늘 있었던 인상 깊었던 사건이 있으면 얘기해주세요"</span>
+                            <span className={style.question_content}>qList[qNum]</span>
                             <textarea
                                 className={style.input_box}
                                 onChange={handleOnChange}
@@ -83,7 +108,7 @@ const Write = () : JSX.Element => {
                         {qNum === 2 &&
                         <div className={qNum === 2 ? style.input_container : style.input_container_close}>
                             <span className={style.question_title}>#세 번째 이야기</span>
-                            <span className={style.question_content}>"남들에게 말하지 못했던 속마음을 풀어놓으세요"</span>
+                            <span className={style.question_content}>qList[qNum]</span>
                             <textarea
                                 className={style.input_box}
                                 onChange={handleOnChange}
@@ -97,7 +122,7 @@ const Write = () : JSX.Element => {
                         {qNum === 3 &&
                         <div className={qNum === 3 ? style.input_container : style.input_container_close}>
                             <span className={style.question_title}>#네 번째 이야기</span>
-                            <span className={style.question_content}>"오늘 힘든일이 있었다면 OO에게 얘기해서 위로를 삼으세요"</span>
+                            <span className={style.question_content}>qList[qNum]</span>
                             <textarea
                                 className={style.input_box}
                                 onChange={handleOnChange}
@@ -111,7 +136,7 @@ const Write = () : JSX.Element => {
                         {qNum === 4 &&
                         <div className={qNum === 4 ? style.input_container : style.input_container_close}>
                             <span className={style.question_title}>#다섯 번째 이야기</span>
-                            <span className={style.question_content}>"고민이나 걱정거리가 있다면 얘기해주세요"</span>
+                            <span className={style.question_content}>qList[qNum]</span>
                             <textarea
                                 className={style.input_box}
                                 onChange={handleOnChange}

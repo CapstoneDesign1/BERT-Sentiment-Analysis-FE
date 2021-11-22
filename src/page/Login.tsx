@@ -1,15 +1,22 @@
 import React, {FormEvent, useEffect, useState} from "react";
 import style from './login.module.css';
 import {Link, useNavigate} from "react-router-dom";
-import { loginMember } from "../apis/Login";
-import {useCookies} from "react-cookie";
+import {Cookies} from "react-cookie";
+import {loginMember} from "../apis/Login";
 
 const Login = () : JSX.Element => {
 
     const [userId, setUserId] = useState('');
     const [password, setPassword] = useState('');
-    const [cookies, setCookie, removeCookie] = useCookies(['userId']);
+    const cookies = new Cookies();
     const navigate = useNavigate();
+
+    useEffect(() => {
+        const userId = cookies.get('userId');
+        if (userId) {
+            navigate('/diary');
+        }
+    }, []);
 
     const handleIdInput = (e : React.FormEvent<HTMLInputElement>) => {
         setUserId(e.currentTarget.value);
@@ -24,7 +31,7 @@ const Login = () : JSX.Element => {
         if (userId && password) {
             try {
                 const response = await loginMember({userId, password});
-                setCookie('userId', response.headers["userid"], {path: '/', expires: new Date(Date.now() + 86400)});
+                cookies.set('userId', response.headers["userid"], {path: '/', expires: new Date(Date.now() + 86400)});
                 navigate('/diary');
             } catch (e) {
                 alert("ID 혹은 PASSWORD가 일치하지 않습니다.");
