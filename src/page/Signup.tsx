@@ -1,7 +1,8 @@
 import React, {FormEvent, useEffect, useState} from "react";
 import style from './signup.module.css';
 import {useNavigate} from "react-router-dom";
-import {duplicateMember, registerMember} from "../apis/Member";
+import { duplicateMember, registerMember } from "../apis/Member";
+
 
 const Signup = () : JSX.Element => {
 

@@ -1,18 +1,25 @@
 import style from './diary.module.css'
 import Navbar from "../component/Navbar";
 import {useNavigate} from "react-router-dom";
+import { Cookies } from 'react-cookie';
+import {useEffect, useState} from "react";
 
 const Diary = () : JSX.Element => {
 
     const navigate = useNavigate();
-    const userId = "simi";
+    const cookies = new Cookies();
+    const [userId, setUserId] = useState('');
+
+    useEffect(() => {
+        setUserId(cookies.get('userId'));
+    }, []);
 
     const handleOnReadClick = () => {
-        navigate(`/diary/${userId}`);
+        userId ? navigate(`/diary/${userId}`) : navigate('/login');
     }
 
     const handleOnWriteClick = () => {
-        navigate('/diary/write');
+        userId ? navigate('/diary/write') : navigate('/login');
     }
 
     return (

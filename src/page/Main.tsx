@@ -1,7 +1,19 @@
 import style from './main.module.css'
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
+import {useEffect} from "react";
+import { Cookies } from 'react-cookie';
 
 const Main = () : JSX.Element => {
+    const cookies = new Cookies();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const userId = cookies.get('userId');
+        if (userId !== undefined) {
+            navigate('/diary');
+        }
+    }, []);
+
     return (
         <div className={style.container}>
             <span className={style.logo_txt}>DAILY FEEL</span>
