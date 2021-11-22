@@ -2,11 +2,12 @@ import style from './write.module.css'
 import Navbar from "../component/Navbar";
 import React, {FormEvent, useEffect, useState} from 'react';
 import {useNavigate} from "react-router-dom";
-import {getQuestions} from "../apis/Question";
+import {getQuestions, IQuestionDto} from "../apis/Question";
 import { Cookies } from 'react-cookie';
 
 const Write = () : JSX.Element => {
 
+    const title : string[] = ["#첫 번째 이야기", "#두 번째 이야기", "#세 번째 이야기", "#네 번째 이야기", "#다섯 번째 이야기"];
     const [form, setForm] = useState({
         answer1: '',
         answer2: '',
@@ -15,7 +16,7 @@ const Write = () : JSX.Element => {
         answer5: ''
     });
     const [qNum, setQNum] = useState(0);
-    const [qList, setQList] = useState([]);
+    const [qList, setQList] = useState<IQuestionDto[]>([]);
     const cookies = new Cookies();
     const navigator = useNavigate();
 
@@ -24,7 +25,7 @@ const Write = () : JSX.Element => {
         if (!userId) {
             navigator('/login')
         }
-        const response = handleGetQuestion();
+        handleGetQuestion();
     }, []);
 
     useEffect(() => {
@@ -77,11 +78,11 @@ const Write = () : JSX.Element => {
             <div className={style.box}>
                 <div className={style.form_container}>
                     <span className={style.form_title}>당신의 속마음을 들려주세요.</span>
-                    <form className={style.form_box} onSubmit={handleOnSubmit}>
+                    {qList.length && <form className={style.form_box} onSubmit={handleOnSubmit}>
                         {qNum === 0 &&
                         <div className={qNum === 0 ? style.input_container : style.input_container_close}>
-                            <span className={style.question_title}>#첫 번째 이야기</span>
-                            <span className={style.question_content}>qList</span>
+                            <span className={style.question_title}>{title[qNum]}</span>
+                            <span className={style.question_content}>{qList[qNum].content}</span>
                             <textarea
                                 className={style.input_box}
                                 onChange={handleOnChange}
@@ -93,8 +94,8 @@ const Write = () : JSX.Element => {
                         }
                         {qNum === 1 &&
                         <div className={qNum === 1 ? style.input_container : style.input_container_close}>
-                            <span className={style.question_title}>#두 번째 이야기</span>
-                            <span className={style.question_content}>qList[qNum]</span>
+                            <span className={style.question_title}>{title[qNum]}</span>
+                            <span className={style.question_content}>{qList[qNum].content}</span>
                             <textarea
                                 className={style.input_box}
                                 onChange={handleOnChange}
@@ -107,8 +108,8 @@ const Write = () : JSX.Element => {
                         }
                         {qNum === 2 &&
                         <div className={qNum === 2 ? style.input_container : style.input_container_close}>
-                            <span className={style.question_title}>#세 번째 이야기</span>
-                            <span className={style.question_content}>qList[qNum]</span>
+                            <span className={style.question_title}>{title[qNum]}</span>
+                            <span className={style.question_content}>{qList[qNum].content}</span>
                             <textarea
                                 className={style.input_box}
                                 onChange={handleOnChange}
@@ -121,8 +122,8 @@ const Write = () : JSX.Element => {
                         }
                         {qNum === 3 &&
                         <div className={qNum === 3 ? style.input_container : style.input_container_close}>
-                            <span className={style.question_title}>#네 번째 이야기</span>
-                            <span className={style.question_content}>qList[qNum]</span>
+                            <span className={style.question_title}>{title[qNum]}</span>
+                            <span className={style.question_content}>{qList[qNum].content}</span>
                             <textarea
                                 className={style.input_box}
                                 onChange={handleOnChange}
@@ -135,8 +136,8 @@ const Write = () : JSX.Element => {
                         }
                         {qNum === 4 &&
                         <div className={qNum === 4 ? style.input_container : style.input_container_close}>
-                            <span className={style.question_title}>#다섯 번째 이야기</span>
-                            <span className={style.question_content}>qList[qNum]</span>
+                            <span className={style.question_title}>{title[qNum]}</span>
+                            <span className={style.question_content}>{qList[qNum].content}</span>
                             <textarea
                                 className={style.input_box}
                                 onChange={handleOnChange}
@@ -150,7 +151,7 @@ const Write = () : JSX.Element => {
                             </div>
                         </div>
                         }
-                    </form>
+                    </form>}
                 </div>
             </div>
         </div>

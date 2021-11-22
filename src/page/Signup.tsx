@@ -3,7 +3,6 @@ import style from './signup.module.css';
 import {useNavigate} from "react-router-dom";
 import { duplicateMember, registerMember } from "../apis/Member";
 
-
 const Signup = () : JSX.Element => {
 
     const [isDuplicate, setIsDuplicate] = useState(false);
@@ -12,7 +11,7 @@ const Signup = () : JSX.Element => {
         password: '',
         verifyPassword: '',
         name: '',
-        age: 0,
+        age: undefined,
         email: ''
     });
     const navigate = useNavigate();
