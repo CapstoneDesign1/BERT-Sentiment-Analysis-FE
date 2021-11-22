@@ -8,6 +8,5 @@ export interface ILoginDto {
 }
 
 export const loginMember = async (loginDto : ILoginDto) => {
-    const response = await axios.post(API_URL, loginDto, {withCredentials: true});
-    return response;
+    return await axios.post(API_URL, loginDto, {withCredentials: true});
 }

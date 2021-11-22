@@ -15,7 +15,7 @@ const Diary = () : JSX.Element => {
     }, []);
 
     const handleOnReadClick = () => {
-        userId ? navigate(`/diary/${userId}`) : navigate('/login');
+        userId ? navigate('/diary/me') : navigate('/login');
     }
 
     const handleOnWriteClick = () => {
