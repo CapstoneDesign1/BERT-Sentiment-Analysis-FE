@@ -3,6 +3,7 @@ import axios from "axios";
 const API_URL = "http://3.36.144.124:8080/member";
 
 export interface IMemberDto {
+    id : number
     isDepressed : boolean
     userId : string
     age : number
