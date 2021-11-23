@@ -5,6 +5,7 @@ import Signup from "./page/Signup";
 import Diary from "./page/Diary";
 import Write from "./page/Write";
 import React from "react";
+import MyPage from "./page/MyPage";
 
 const Routers = () : JSX.Element => {
     return (
@@ -15,6 +16,7 @@ const Routers = () : JSX.Element => {
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/diary" element={<Diary />} />
                 <Route path="/diary/write" element={<Write />} />
+                <Route path="/diary/me" element={<MyPage />} />
             </Routes>
         </BrowserRouter>
     )

@@ -1,0 +1,156 @@
+.container {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background-image: url("../images/sea-6553205_1280.jpg");
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+
+.box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 80%;
+    margin-top: 80px;
+    height: calc(100% - 80px);
+}
+
+.diary_txt {
+    font-size: 20px;
+    color: #189572;
+    font-weight: bold;
+    display: block;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    animation: fadeIn 2s;
+    animation-fill-mode: forwards;
+}
+
+.diary_nonblock_txt {
+    font-size: 20px;
+    color: #189572;
+    font-weight: bold;
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+.diary_box {
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    height: 200px;
+    border: 1px solid #189572;
+    border-radius: 5px;
+    margin-bottom: 30px;
+}
+
+.diary_wrap_box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.diary_title {
+    display: block;
+    font-size: 15px;
+    margin-bottom: 10px;
+}
+
+.diary_date {
+    display: block;
+}
+
+.view_button {
+    position: relative;
+    background-color: #189572;
+    padding: 10px;
+    color: white;
+    width: 70px;
+    height: 40px;
+    margin-top: 10px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    border-radius: 3px;
+    margin-left: 20px;
+}
+
+.arrow_button {
+    position: relative;
+    background-color: #189572;
+    padding: 10px;
+    color: white;
+    width: 70px;
+    height: 40px;
+    font-weight: bold;
+    font-size: 20px;
+    border-radius: 3px;
+    margin: 10px 20px 15px;
+}
+
+.diary_button {
+    background-color: #189572;
+    padding: 10px;
+    color: white;
+    height: 40px;
+    margin-top: 10px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    border-radius: 3px;
+    margin-left: 20px;
+    animation: fadeIn_txt 3s;
+    animation-fill-mode: forwards;
+    animation-delay: 2.5s;
+}
+
+.hidden_txt {
+    animation: hidden_box;
+    animation-fill-mode: forwards;
+}
+
+.delayed_txt {
+    font-size: 20px;
+    color: #189572;
+    font-weight: bold;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    animation: fadeIn_txt 3.5s;
+    animation-delay: 1s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        left:  100%;
+    }
+    to {
+        opacity: 1;
+        left: 0;
+    }
+}
+
+@keyframes fadeIn_txt{
+    from {
+        opacity: 0;
+        left:  100%;
+        visibility: visible;
+    }
+    to {
+        opacity: 1;
+        left: 0;
+        visibility: visible;
+    }
+}
+
+@keyframes hidden_box {
+    from {
+        visibility: hidden;
+    }
+    to {
+        visibility: hidden;
+    }
+}
