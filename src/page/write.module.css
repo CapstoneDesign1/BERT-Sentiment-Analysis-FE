@@ -43,10 +43,11 @@
 
 .question_content {
     display: inline-block;
-    margin-bottom: 10px;
-    font-size: 16px;
+    margin-bottom: 15px;
+    font-size: 17px;
     height: 20px;
-    opacity: 0.6;
+    opacity: 0.7;
+    text-decoration-style: wavy;
 }
 
 .input_box {
@@ -57,7 +58,7 @@
     overflow: auto;
     font-size: 16px;
     resize: none;
-    padding: 5px;
+    padding: 7px;
 }
 
 .input_box:focus-within {
