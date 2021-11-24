@@ -4,6 +4,7 @@ import {Cookies} from "react-cookie";
 import {useNavigate} from "react-router-dom";
 import style from "./myPage.module.css"
 import Navbar from "../component/Navbar";
+import Slider from "react-slick";
 
 const MyPage = () : JSX.Element => {
 
@@ -12,7 +13,14 @@ const MyPage = () : JSX.Element => {
     const [dList, setDList] = useState<IDiaryDto[]>([]);
     const [dNum, setDNum] = useState<number>(0);
     const [userId, setUserId] = useState('');
-    const [dIndex, setDIndex] = useState(0);
+    const settings = {
+        infinite: true,
+        speed: 500,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        arrows: true,
+        centerMode: true,
+    }
 
     useEffect(() => {
         const userId = cookies.get('userId');
@@ -44,39 +52,27 @@ const MyPage = () : JSX.Element => {
         return response;
     }
 
-    const handleOnLeftClick = () => {
-        if (dIndex === 0)
-            return ;
-        setDIndex((dIndex) => dIndex - 1);
-    }
-
-    const handleOnRightClick = () => {
-        if (dIndex === dNum - 1)
-            return ;
-        setDIndex((dIndex) => dIndex + 1);
-    }
-
-    const handleOnBackClick = () => {
-        navigate('/diary');
-    }
-
     return (
         <div className={style.container}>
-            <button className={style.view_button} onClick={handleOnBackClick}>돌아가기</button>
+            <Navbar />
             <div className={style.box}>
                 <span className={style.diary_txt}>{userId}님이 작성하신 {dNum}개의 이야기들을 확인해보세요</span>
-                {dList.length && <div className={style.diary_wrap_box}>
-                    <button className={style.arrow_button} onClick={handleOnLeftClick}>{"<"}</button>
-                    <div className={style.diary_box}>
-                        <span className={style.diary_title}>#{dIndex + 1}일차</span>
-                        <span className={style.diary_date}>{dList[dIndex].createdDate.toString().substring(0,10)}의 기록</span>
-                        <button className={style.view_button}>보러가기</button>
-                    </div>
-                    <button className={style.arrow_button} onClick={handleOnRightClick}>{">"}</button>
-                </div>}
-                {dNum >= 3 ?
+                <div className={style.slider_box}>
+                    <Slider {...settings}>
+                        {dList.map((item, index) => (
+                            <div>
+                                <div className={style.diary_box} key={item.id}>
+                                    <span className={style.diary_title}>{index + 1}일차 기록🖋</span>
+                                    <button className={style.view_button}>보러가기</button>
+                                    <span className={style.diary_date}>🗓 {item.createdDate.toString().substring(0,10)}</span>
+                                </div>
+                            </div>
+                        ))}
+                    </Slider>
+                </div>
+                {dNum >= 5 ?
                     <div className={style.hidden_txt}>
-                        <span className={style.delayed_txt}>5개 이상의 이야기가 작성되어 감정을 분석해볼 수 있어요!</span>
+                        <span className={style.delayed_txt}>5개 이상의 이야기가 작성되어 감정을 분석해볼 수 있어요</span>
                         <button className={style.diary_button} onClick={handleOnClick}>분석하러 가기</button>
                     </div>
                             :
