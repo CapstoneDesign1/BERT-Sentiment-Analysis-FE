@@ -1,5 +1,5 @@
 import style from './write.module.css'
-import Navbar from "../component/Navbar";
+import Navbar from "../component/navbar/Navbar"
 import React, {FormEvent, useEffect, useState} from 'react';
 import {useNavigate} from "react-router-dom";
 import {getQuestions, IQuestionDto} from "../apis/Question";
@@ -66,6 +66,11 @@ const Write = () : JSX.Element => {
         setQNum((qNum) => qNum - 1);
     }
 
+    const handleOnSubmit = async (e : FormEvent) => {
+        e.preventDefault();
+        await onRegister();
+    }
+
     const onRegister = async () => {
         if (answer1 && answer2 && answer3 && answer4 && answer5) {
             const userId = cookies.get('userId');
@@ -80,11 +85,6 @@ const Write = () : JSX.Element => {
         else {
             alert("모든 질문에 답해주세요.");
         }
-    }
-
-    const handleOnSubmit = async (e : FormEvent) => {
-        e.preventDefault();
-        await onRegister();
     }
 
     const {answer1, answer2, answer3, answer4, answer5} = form;

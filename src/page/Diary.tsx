@@ -1,5 +1,5 @@
 import style from './diary.module.css'
-import Navbar from "../component/Navbar";
+import Navbar from "../component/navbar/Navbar";
 import {useNavigate} from "react-router-dom";
 import { Cookies } from 'react-cookie';
 import {useEffect, useState} from "react";
@@ -27,8 +27,12 @@ const Diary = () : JSX.Element => {
     }
 
     const onCheck = async (id : string) => {
-        const response = await checkUserDiary(id);
-        setIsValid(response);
+        try {
+            const response = await checkUserDiary(id);
+            setIsValid(response);
+        } catch (e) {
+
+        }
     }
 
     return (
@@ -43,7 +47,10 @@ const Diary = () : JSX.Element => {
                 <div className={style.animation_box}>
                     <div className={style.in_box2}>
                         <span className={style.diary_txt}>"우리가 기다리는 당신의 솔직한 마음"</span>
-                        <button className={style.diary_button} onClick={handleOnWriteClick}>작성하러 가기</button>
+                        {isValid ?
+                            <button className={style.diary_button} onClick={handleOnWriteClick}>작성하러 가기</button>
+                                :
+                            <span className={style.invalid_txt}>오늘은 이미 일기를 썼어요 😅</span>}
                     </div>
                 </div>
             </div>
