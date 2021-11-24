@@ -1,4 +1,6 @@
-import Navbar from "../component/Navbar";
+import { useState } from "react";
+import Modal from "../component/modal/Modal";
+import Navbar from "../component/navbar/Navbar";
 import style from "./result.module.css"
 
 const Result = () : JSX.Element => {

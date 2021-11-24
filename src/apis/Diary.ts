@@ -34,3 +34,8 @@ export const checkUserDiary = async (user_id : string) => {
     const response = await axios.get(`${API_URL}/check/${user_id}`, {withCredentials: true});
     return response.data;
 }
+
+export const getOneDiary = async (diary_id : number) => {
+    const response = await axios.get(`${API_URL}/${diary_id}`, {withCredentials: true});
+    return response.data;
+}

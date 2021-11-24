@@ -67,6 +67,12 @@
     animation-fill-mode: forwards;
 }
 
+.invalid_txt {
+    color: #e39393;
+    font-weight: bold;
+    font-size: 18px;
+}
+
 @keyframes fadeIn {
     from {
         opacity: 0;
