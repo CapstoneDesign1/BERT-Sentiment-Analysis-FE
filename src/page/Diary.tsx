@@ -3,15 +3,19 @@ import Navbar from "../component/Navbar";
 import {useNavigate} from "react-router-dom";
 import { Cookies } from 'react-cookie';
 import {useEffect, useState} from "react";
+import {checkUserDiary} from "../apis/Diary";
 
 const Diary = () : JSX.Element => {
 
     const navigate = useNavigate();
     const cookies = new Cookies();
     const [userId, setUserId] = useState('');
+    const [isValid, setIsValid] = useState(false);
 
     useEffect(() => {
-        setUserId(cookies.get('userId'));
+        const id = cookies.get('userId');
+        setUserId(id);
+        onCheck(id);
     }, []);
 
     const handleOnReadClick = () => {
@@ -19,7 +23,12 @@ const Diary = () : JSX.Element => {
     }
 
     const handleOnWriteClick = () => {
-        userId ? navigate('/diary/write') : navigate('/login');
+        userId ? (isValid ? navigate('/diary/write') : alert("오늘은 더이상 작성하실 수 없습니다.")) : navigate('/login');
+    }
+
+    const onCheck = async (id : string) => {
+        const response = await checkUserDiary(id);
+        setIsValid(response);
     }
 
     return (

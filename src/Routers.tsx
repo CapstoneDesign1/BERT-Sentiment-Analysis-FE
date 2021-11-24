@@ -6,6 +6,7 @@ import Diary from "./page/Diary";
 import Write from "./page/Write";
 import React from "react";
 import MyPage from "./page/MyPage";
+import Result from "./page/Result";
 
 const Routers = () : JSX.Element => {
     return (
@@ -17,6 +18,7 @@ const Routers = () : JSX.Element => {
                 <Route path="/diary" element={<Diary />} />
                 <Route path="/diary/write" element={<Write />} />
                 <Route path="/diary/me" element={<MyPage />} />
+                <Route path="/result" element={<Result />} />
             </Routes>
         </BrowserRouter>
     )

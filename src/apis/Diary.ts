@@ -29,3 +29,8 @@ export const getUserDiary = async (user_id : string) => {
     const response = await axios.get(`${API_URL}/list/${user_id}`, {withCredentials: true});
     return response.data;
 }
+
+export const checkUserDiary = async (user_id : string) => {
+    const response = await axios.get(`${API_URL}/check/${user_id}`, {withCredentials: true});
+    return response.data;
+}
