@@ -133,6 +133,35 @@
     margin-bottom: 40px;
 }
 
+.no_diary_txt {
+    color: #189572;
+    justify-content: center;
+    align-items: center;
+    display: block;
+    font-size: 20px;
+}
+
+.no_diary_button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+    background-color: #189572;
+    padding: 10px;
+    color: white;
+    font-weight: bold;
+}
+
+.no_diary_box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 200px;
+    margin-top: 200px;
+}
+
 @keyframes fadeIn {
     from {
         opacity: 0;

@@ -16,3 +16,98 @@
     margin-top: 80px;
     height: calc(100% - 80px);
 }
+
+.user_txt {
+    margin-top: 35px;
+    margin-bottom: 20px;
+}
+
+.user_name {
+    color: #189572;
+    font-size: 25px;
+}
+
+.user_result {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.day {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.result_box {
+    margin-bottom: 10px;
+}
+
+.emotion {
+    color: #ea5709;
+    font-weight: bold;
+}
+
+.final_result {
+    font-size: 20px;
+    margin-bottom: 20px;
+    margin-top: 10px;
+}
+
+.final_emotion {
+    color: #ea5709;
+    font-weight: bold;
+}
+
+.score {
+    font-size: 20px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.good_word {
+    font-size: 17px;
+    margin-bottom: 10px;
+    color: #8d8d8d;
+}
+
+.good_word_title {
+    font-size: 16px;
+    margin-bottom: 10px;
+    text-decoration: underline;
+}
+
+.consult_title {
+    font-size: 16px;
+    color: #8d8d8d;
+    margin-bottom: 10px;
+}
+
+.consult {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.consult_link {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.daily {
+    margin-bottom: 20px;
+    margin-top: 15px;
+    color: #189572;
+    font-weight: bold;
+    font-size: 17px;
+}
+
+.help_main {
+    font-weight: bold;
+}
+
+.help {
+    display: block;
+}
+
+.cheer_up {
+    font-size: 20px;
+    color: #8d8d8d;
+}
