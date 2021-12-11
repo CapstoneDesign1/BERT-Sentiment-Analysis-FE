@@ -1,9 +1,10 @@
 import style from './diary.module.css'
-import Navbar from "../component/navbar/Navbar";
+
 import {useNavigate} from "react-router-dom";
 import { Cookies } from 'react-cookie';
 import {useEffect, useState} from "react";
 import {checkUserDiary} from "../apis/Diary";
+import Navbar from "../component/navbar/Navbar";
 
 const Diary = () : JSX.Element => {
 
@@ -24,6 +25,7 @@ const Diary = () : JSX.Element => {
 
     const handleOnWriteClick = () => {
         userId ? (isValid ? navigate('/diary/write') : alert("오늘은 더이상 작성하실 수 없습니다.")) : navigate('/login');
+        // navigate('/diary/write');
     }
 
     const onCheck = async (id : string) => {
@@ -47,6 +49,7 @@ const Diary = () : JSX.Element => {
                 <div className={style.animation_box}>
                     <div className={style.in_box2}>
                         <span className={style.diary_txt}>"우리가 기다리는 당신의 솔직한 마음"</span>
+                        {/*<button className={style.diary_button} onClick={handleOnWriteClick}>작성하러 가기</button>*/}
                         {isValid ?
                             <button className={style.diary_button} onClick={handleOnWriteClick}>작성하러 가기</button>
                                 :

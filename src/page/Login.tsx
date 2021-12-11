@@ -31,7 +31,7 @@ const Login = () : JSX.Element => {
         if (userId && password) {
             try {
                 const response = await loginMember({userId, password});
-                cookies.set('userId', response.headers["userid"], {path: '/', expires: new Date(Date.now() + 86400)});
+                cookies.set('userId', response.headers["userid"], {path: '/', expires: new Date(Date.now() + 86400000)});
                 navigate('/diary');
             } catch (e) {
                 alert("ID 혹은 PASSWORD가 일치하지 않습니다.");

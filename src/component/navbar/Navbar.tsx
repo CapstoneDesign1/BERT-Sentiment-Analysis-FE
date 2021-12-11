@@ -12,7 +12,7 @@ const Navbar = () : JSX.Element => {
     useEffect(() => {
         const userId = cookies.get('userId');
         userId ? setIsLogin(true) : setIsLogin(false);
-    }, []);
+    }, [cookies]);
 
     const handleLogoOnClick = () => {
         isLogin ? navigate('/diary') : navigate('/login');

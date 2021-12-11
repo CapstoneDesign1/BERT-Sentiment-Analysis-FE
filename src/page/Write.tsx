@@ -4,7 +4,7 @@ import React, {FormEvent, useEffect, useState} from 'react';
 import {useNavigate} from "react-router-dom";
 import {getQuestions, IQuestionDto} from "../apis/Question";
 import { Cookies } from 'react-cookie';
-import {registerDiary} from "../apis/Diary";
+import {analysisDiary, registerDiary} from "../apis/Diary";
 
 const Write = () : JSX.Element => {
 
@@ -19,6 +19,8 @@ const Write = () : JSX.Element => {
     const [qNum, setQNum] = useState(0);
     const [qList, setQList] = useState<IQuestionDto[]>([]);
     const [questionIdList, setQuestionIdList] = useState('');
+    const [isRegister, setIsRegister] = useState(false);
+    const [currentId, setCurrentId] = useState(-1);
     const cookies = new Cookies();
     const navigator = useNavigate();
 
@@ -36,6 +38,12 @@ const Write = () : JSX.Element => {
                         : setQuestionIdList((questionIdList) => questionIdList.concat("#" + item.id.toString()))
         ));
     }, [qList]);
+
+    /*useEffect(() => {
+        if (isRegister) {
+
+        }
+    }, [isRegister])*/
 
     const handleGetQuestion = async () => {
         try {
@@ -68,16 +76,22 @@ const Write = () : JSX.Element => {
 
     const handleOnSubmit = async (e : FormEvent) => {
         e.preventDefault();
-        await onRegister();
+        try {
+            const response = await onRegister();
+            await analysisDiary(response);
+        } catch(e) {
+
+        }
     }
 
     const onRegister = async () => {
         if (answer1 && answer2 && answer3 && answer4 && answer5) {
             const userId = cookies.get('userId');
             try {
-                await registerDiary({userId, answer1, answer2, answer3, answer4, answer5, questionIdList});
+                const response = await registerDiary({userId, answer1, answer2, answer3, answer4, answer5, questionIdList});
                 alert("작성을 완료했습니다.");
                 navigator('/diary');
+                return response;
             } catch (e) {
                 alert("잠시후 다시 시도해주세요.");
             }

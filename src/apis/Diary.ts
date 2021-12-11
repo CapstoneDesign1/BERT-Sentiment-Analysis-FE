@@ -13,11 +13,13 @@ export interface IDiaryDto {
     answer5: string
     questionIdList : string
     createdDate : Date
+    emotionType : string
     questionDtoList : IQuestionDto[] | undefined
 }
 
 export const registerDiary = async (diaryDto : Partial<IDiaryDto>) => {
-    return await axios.post(API_URL, diaryDto, {withCredentials: true});
+    const response = await axios.post(API_URL, diaryDto, {withCredentials: true});
+    return response.data;
 }
 
 export const countDiary = async (user_id : string) => {
@@ -38,4 +40,8 @@ export const checkUserDiary = async (user_id : string) => {
 export const getOneDiary = async (diary_id : number) => {
     const response = await axios.get(`${API_URL}/${diary_id}`, {withCredentials: true});
     return response.data;
+}
+
+export const analysisDiary = async (diary_id : number) => {
+    return await axios.get(`${API_URL}/analysis/${diary_id}`, {withCredentials: true});
 }

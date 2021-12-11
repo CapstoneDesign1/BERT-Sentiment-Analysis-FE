@@ -74,7 +74,11 @@ const MyPage = () : JSX.Element => {
         }
     }
 
-    const handleOnClick = () => {
+    const handleNoDiaryClick = () => {
+        navigate('/diary/write');
+    }
+
+    const handleOnClick = async () => {
         navigate('/result');
     }
 
@@ -92,20 +96,29 @@ const MyPage = () : JSX.Element => {
         <div className={style.container}>
             <Navbar />
             <div className={style.box}>
-                <span className={style.diary_txt}>{userId}님이 작성하신 {dNum}개의 이야기들을 확인해보세요</span>
-                <div className={style.slider_box}>
-                    <Slider {...settings}>
-                        {dList.map((item, index) => (
-                            <div key={item.id}>
-                                <div className={style.diary_box}>
-                                    <span className={style.diary_title}>{index + 1}일차 기록🖋</span>
-                                    <button className={style.view_button} onClick={(e) => handleOnViewClick(item.id, e)}>보러가기</button>
-                                    <span className={style.diary_date}>🗓 {item.createdDate.toString().substring(0,10)}</span>
-                                </div>
-                            </div>
-                        ))}
-                    </Slider>
-                </div>
+                {dNum === 0 ?
+                    <div className={style.no_diary_box}>
+                        <span className={style.no_diary_txt}>아직 쓴 일기가 없어요. 첫 일기를 작성해주세요</span>
+                        <button className={style.no_diary_button} onClick={handleNoDiaryClick}>쓰러가기</button>
+                    </div>
+                    :
+                    <div>
+                        <span className={style.diary_txt}>{userId}님이 작성하신 {dNum}개의 이야기들을 확인해보세요</span>
+                        <div className={style.slider_box}>
+                            <Slider {...settings}>
+                                {dList.map((item, index) => (
+                                    <div key={item.id}>
+                                        <div className={style.diary_box}>
+                                            <span className={style.diary_title}>{index + 1}일차 기록🖋</span>
+                                            <button className={style.view_button} onClick={(e) => handleOnViewClick(item.id, e)}>보러가기</button>
+                                            <span className={style.diary_date}>🗓 {item.createdDate.toString().substring(0,10)}</span>
+                                        </div>
+                                    </div>
+                                ))}
+                            </Slider>
+                        </div>
+                    </div>
+                }
                 {dNum >= 5 ?
                     <div className={style.hidden_txt}>
                         <span className={style.delayed_txt}>5개 이상의 이야기가 작성되어 감정을 분석해볼 수 있어요</span>
